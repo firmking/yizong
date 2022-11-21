@@ -6,7 +6,7 @@
 	<form class="layui-form gg-form-bar border-t border-x">
 		<div class="layui-input-inline">
 			<select name="cate_id">
-				<option value="">请选择文章分类</option>
+				<option value="">请选择活动分类</option>
 				{volist name=":set_recursion(get_activity_cate())" id="v"}
 				<option value="{$v.id}">{$v.title}</option>
 				{/volist}
@@ -33,8 +33,17 @@
 	</div>
 </script>
 
+<!--<script type="text/html" id="barUserDemo">
+	<div class="layui-btn-group">
+		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="read">报名会员列表</a>
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</div>
+</script>-->
+
 <script type="text/html" id="barDemo">
 	<div class="layui-btn-group">
+		<a class="layui-btn layui-btn-cyan layui-btn-xs" lay-event="buser">报名会员列表</a>
 		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="read">查看</a>
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -68,12 +77,12 @@
 					width: 80
 				},{
 					field: 'cate_title',
-					title: '文章分类',
+					title: '活动分类',
 					align: 'center',
 					width: 120
 				},{
 					field: 'title',
-					title: '文章标题',
+					title: '活动标题',
 				},{
 					field: 'integral',
 					title: '赠送积分',
@@ -86,15 +95,9 @@
 					width: 90
 				},{
 					field: 'type_str',
-					title: '文章属性',
+					title: '活动属性',
 					align: 'center',
 					width: 90
-				},{
-					field: 'is_home',
-					title: '是否首页显示',
-					toolbar: '#is_home',
-					align: 'center',
-					width: 100
 				},{
 					field: 'sort',
 					title: '排序',
@@ -144,6 +147,9 @@
 			}
 			else if (obj.event === 'edit') {
 				tool.side('/admin/activity/edit?id='+obj.data.id);
+			}
+			else if (obj.event === 'buser'){
+				tool.side('/admin/activity/sign_up?id='+obj.data.id);
 			}
 			else if (obj.event === 'del') {
 				layer.confirm('确定要删除该记录吗?', {

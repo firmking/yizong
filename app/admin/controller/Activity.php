@@ -6,12 +6,12 @@ namespace app\admin\controller;
 
 use app\admin\BaseController;
 use app\admin\model\Activity as ActivityModel;
+use app\admin\model\UserSignUp;
 use app\admin\validate\ActivityValidate;
 use app\admin\validate\ArticleValidate;
 use think\exception\ValidateException;
 use think\facade\Db;
 use think\facade\View;
-use think\Model as ArticleModel;
 
 class Activity extends BaseController
 {
@@ -48,6 +48,37 @@ class Activity extends BaseController
             return view();
         }
     }
+
+    /**
+     * 报名列表
+     * @return \json|\think\response\View
+     */
+    public function sign_up(){
+        if (request()->isAjax()) {
+            $param = get_params();
+            if(empty($param['aid'])){
+                return to_assign(1,'缺少必要参数');
+            }
+            try {
+                $userSignUp = new UserSignUp();
+                $result = $userSignUp->getUserSignUpSelect($param['aid'],$param);
+            } catch (\Exception $e){
+                // 验证失败 输出错误信息
+                return to_assign(0, $e->getMessage());
+            }
+            if($result){
+                return to_assign(1,'获取成功',$result);
+            }else{
+                return to_assign(0,'获取失败');
+            }
+        }else{
+            $param = get_params();
+            View::assign('aid',$param['id']);
+            return view();
+        }
+
+    }
+
 
     /**
      * 添加
