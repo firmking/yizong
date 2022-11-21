@@ -14,7 +14,7 @@
  Date: 20/11/2022 21:52:01
 */
 
-SET NAMES utf8mb4;
+SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -23,26 +23,26 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `cms_admin`;
 CREATE TABLE `cms_admin`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `pwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `salt` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
-  `thumb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `theme` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'black' COMMENT '系统主题',
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `pwd` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `salt` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+  `thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'black' COMMENT '系统主题',
   `mobile` bigint(0) NULL DEFAULT 0,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '备注',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+  `desc` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '备注',
   `did` int(0) NOT NULL DEFAULT 0 COMMENT '部门id',
   `position_id` int(0) NOT NULL DEFAULT 0 COMMENT '职位id',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   `last_login_time` int(0) NOT NULL DEFAULT 0,
   `login_num` int(0) NOT NULL DEFAULT 0,
-  `last_login_ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `last_login_ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1正常,0禁止登录,-1删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `id`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin
@@ -55,15 +55,15 @@ INSERT INTO `cms_admin` VALUES (1, 'admin', 'ee0f859e570bdacb051fdbaec111e6d1', 
 DROP TABLE IF EXISTS `cms_admin_group`;
 CREATE TABLE `cms_admin_group`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `status` int(0) NOT NULL DEFAULT 1,
-  `rules` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '用户组拥有的规则id， 多个规则\",\"隔开',
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '备注',
+  `rules` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户组拥有的规则id， 多个规则\",\"隔开',
+  `desc` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '备注',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `id`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '权限分组表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限分组表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin_group
@@ -81,7 +81,7 @@ CREATE TABLE `cms_admin_group_access`  (
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   UNIQUE INDEX `uid_group_id`(`uid`, `group_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '权限分组和管理员的关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限分组和管理员的关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin_group_access
@@ -95,23 +95,23 @@ DROP TABLE IF EXISTS `cms_admin_log`;
 CREATE TABLE `cms_admin_log`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `uid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '昵称',
-  `type` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作类型',
-  `action` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作动作',
-  `subject` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作主体',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '操作描述',
-  `module` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '模块',
-  `controller` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '控制器',
-  `function` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '方法',
-  `rule_menu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '节点权限路径',
-  `ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '登录ip',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '昵称',
+  `type` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作类型',
+  `action` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作动作',
+  `subject` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作主体',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作标题',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '操作描述',
+  `module` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '模块',
+  `controller` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '控制器',
+  `function` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '方法',
+  `rule_menu` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '节点权限路径',
+  `ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '登录ip',
   `param_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '操作数据id',
-  `param` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '参数json格式',
+  `param` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '参数json格式',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0删除 1正常',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '后台操作日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台操作日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin_log
@@ -146,15 +146,15 @@ INSERT INTO `cms_admin_log` VALUES (23, 1, '超级管理员', 'add', '新增', '
 DROP TABLE IF EXISTS `cms_admin_module`;
 CREATE TABLE `cms_admin_module`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '模块名称',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '模块所在目录，小写字母',
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图标',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '模块名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '模块所在目录，小写字母',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图标',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '状态,0禁用,1正常',
   `type` int(0) NOT NULL DEFAULT 2 COMMENT '模块类型,2普通模块,1系统模块',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '功能模块表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能模块表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin_module
@@ -169,19 +169,19 @@ DROP TABLE IF EXISTS `cms_admin_rule`;
 CREATE TABLE `cms_admin_rule`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '父id',
-  `src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT 'url链接',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '名称',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '日志操作名称',
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图标',
+  `src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'url链接',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '日志操作名称',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图标',
   `menu` int(0) NOT NULL DEFAULT 0 COMMENT '是否是菜单,1是,2不是',
   `sort` int(0) NOT NULL DEFAULT 1 COMMENT '越小越靠前',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '状态,0禁用,1正常',
-  `module` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '所属模块',
-  `crud` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT 'crud标识',
+  `module` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '所属模块',
+  `crud` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'crud标识',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单及权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单及权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_admin_rule
@@ -306,14 +306,14 @@ DROP TABLE IF EXISTS `cms_article`;
 CREATE TABLE `cms_article`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `cate_id` int(0) NOT NULL DEFAULT 0 COMMENT '所属分类',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '摘要',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '摘要',
   `thumb` int(0) NOT NULL DEFAULT 0 COMMENT '缩略图:附件id',
   `original` int(0) NOT NULL DEFAULT 0 COMMENT '是否原创:1是,0否',
-  `origin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '来源或作者',
-  `origin_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '来源地址',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
-  `md_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'markdown内容',
+  `origin` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '来源或作者',
+  `origin_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '来源地址',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
+  `md_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'markdown内容',
   `read` int(0) NOT NULL DEFAULT 0 COMMENT '阅读量',
   `type` tinyint(0) NOT NULL DEFAULT 0 COMMENT '属性:1精华,2热门,3推荐',
   `is_home` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否首页显示:0否,1是',
@@ -324,7 +324,7 @@ CREATE TABLE `cms_article`  (
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_article
@@ -343,15 +343,15 @@ DROP TABLE IF EXISTS `cms_article_cate`;
 CREATE TABLE `cms_article_cate`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(0) NOT NULL DEFAULT 0 COMMENT '父类ID',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '分类名称',
-  `keywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '关键字',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '描述',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '关键字',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '描述',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '添加时间',
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章分类::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章分类::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_article_cate
@@ -373,7 +373,7 @@ CREATE TABLE `cms_article_keywords`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE,
   INDEX `inid`(`keywords_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_article_keywords
@@ -391,14 +391,14 @@ INSERT INTO `cms_article_keywords` VALUES (6, 6, 6, 1, 1668936349);
 DROP TABLE IF EXISTS `cms_config`;
 CREATE TABLE `cms_config`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '配置名称',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '配置标识',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '配置内容',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '配置名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '配置标识',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置内容',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：-1删除 0禁用 1启用',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_config
@@ -415,16 +415,16 @@ INSERT INTO `cms_config` VALUES (5, '其他配置', 'other', 'a:4:{s:2:\"id\";s:
 DROP TABLE IF EXISTS `cms_department`;
 CREATE TABLE `cms_department`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '部门名称',
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '部门名称',
   `pid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级部门id',
   `leader_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '部门负责人ID',
-  `phone` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '部门联系电话',
-  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注',
+  `phone` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '部门联系电话',
+  `remark` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：-1删除 0禁用 1启用',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门组织' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门组织' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_department
@@ -451,26 +451,26 @@ INSERT INTO `cms_department` VALUES (15, '销售部', 11, 0, '13688888666', '', 
 DROP TABLE IF EXISTS `cms_file`;
 CREATE TABLE `cms_file`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `module` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '所属模块',
-  `sha1` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'sha1',
-  `md5` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'md5',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '原始文件名',
-  `filename` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '文件名',
-  `filepath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '文件路径+文件名',
+  `module` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '所属模块',
+  `sha1` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'sha1',
+  `md5` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'md5',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '原始文件名',
+  `filename` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `filepath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件路径+文件名',
   `filesize` int(0) NOT NULL DEFAULT 0 COMMENT '文件大小',
-  `fileext` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '文件后缀',
-  `mimetype` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '文件类型',
+  `fileext` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件后缀',
+  `mimetype` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件类型',
   `user_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上传会员ID',
-  `uploadip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '上传IP',
+  `uploadip` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '上传IP',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0未审核1已审核-1不通过',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `admin_id` int(0) NOT NULL COMMENT '审核者id',
   `audit_time` int(0) NOT NULL DEFAULT 0 COMMENT '审核时间',
-  `action` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '来源模块功能',
-  `use` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用处',
+  `action` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '来源模块功能',
+  `use` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用处',
   `download` int(0) NOT NULL DEFAULT 0 COMMENT '下载量',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_file
@@ -492,13 +492,13 @@ CREATE TABLE `cms_gallery`  (
   `type` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '属性:1精华,2热门,3推荐',
   `is_home` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否首页显示:0否,1是',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态:0下架 1正常',
-  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图集名称',
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图集名称',
   `thumb` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '缩略图',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图集摘要',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '内容',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图集摘要',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   `user_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户id',
-  `origin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '来源或作者',
-  `origin_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '来源地址',
+  `origin` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '来源或作者',
+  `origin_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '来源地址',
   `read` int(0) NOT NULL DEFAULT 0 COMMENT '阅读量',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `admin_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
@@ -506,7 +506,7 @@ CREATE TABLE `cms_gallery`  (
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '图集::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '图集::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_gallery
@@ -519,16 +519,16 @@ INSERT INTO `cms_gallery` VALUES (1, 1, 3, 1, 1, '勾股开源系列系统', 1, 
 DROP TABLE IF EXISTS `cms_gallery_cate`;
 CREATE TABLE `cms_gallery_cate`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图集分类名称',
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图集分类名称',
   `sort` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
   `pid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级id',
-  `keywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '关键字',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '描述',
+  `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '关键字',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '描述',
   `create_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '图集分类::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '图集分类::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_gallery_cate
@@ -543,16 +543,16 @@ CREATE TABLE `cms_gallery_file`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `aid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '图集ID',
   `file_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '文件id',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图片名称',
-  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '摘要',
-  `filepath` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图片路径',
-  `link` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '链接地址',
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片名称',
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '摘要',
+  `filepath` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片路径',
+  `link` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '链接地址',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '图集关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '图集关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_gallery_file
@@ -572,7 +572,7 @@ CREATE TABLE `cms_gallery_keywords`  (
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '图集关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '图集关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_gallery_keywords
@@ -589,29 +589,29 @@ CREATE TABLE `cms_goods`  (
   `type` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '属性:1精华,2热门,3推荐',
   `is_home` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否首页显示:0否,1是',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '商品状态:0下架,1正常',
-  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品名称',
   `thumb` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '缩略图',
-  `banner` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品轮播图',
-  `tips` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品卖点，一句话推销',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品摘要',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
+  `banner` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品轮播图',
+  `tips` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品卖点，一句话推销',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品摘要',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
   `base_price` decimal(10, 2) NULL COMMENT '市场价格',
   `price` decimal(10, 2) NULL COMMENT '实际价格',
   `stocks` int(0) NOT NULL DEFAULT 0 COMMENT '商品库存',
   `sales` int(0) NOT NULL DEFAULT 0 COMMENT '商品销量',
-  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品发货地址',
+  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品发货地址',
   `start_time` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '开始抢购时间',
   `end_time` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '结束抢购时间',
   `read` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '阅读量',
   `sort` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
   `is_mail` tinyint(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否包邮:0否,1是',
-  `tag_values` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '商品标签:1正品保证,2一年保修,3七天退换,4赠运费险,5闪电发货,6售后无忧',
+  `tag_values` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '商品标签:1正品保证,2一年保修,3七天退换,4赠运费险,5闪电发货,6售后无忧',
   `admin_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
   `create_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '编辑时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_goods
@@ -624,16 +624,16 @@ INSERT INTO `cms_goods` VALUES (1, 1, 1, 1, 1, '勾股CMS，勾股Blog，勾股O
 DROP TABLE IF EXISTS `cms_goods_cate`;
 CREATE TABLE `cms_goods_cate`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
   `sort` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
   `pid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级id',
-  `keywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '关键字',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '描述',
+  `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '关键字',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '描述',
   `create_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品分类::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_goods_cate
@@ -653,7 +653,7 @@ CREATE TABLE `cms_goods_keywords`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE,
   INDEX `inid`(`keywords_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_goods_keywords
@@ -666,13 +666,13 @@ INSERT INTO `cms_goods_keywords` VALUES (1, 1, 1, 1, 1644823517);
 DROP TABLE IF EXISTS `cms_keywords`;
 CREATE TABLE `cms_keywords`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '关键字名称',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键字名称',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：-1删除 0禁用 1启用',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '关键字表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '关键字表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_keywords
@@ -690,16 +690,16 @@ INSERT INTO `cms_keywords` VALUES (6, '政策', 0, 1, 1668936349, 0);
 DROP TABLE IF EXISTS `cms_links`;
 CREATE TABLE `cms_links`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '网站标题',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '网站标题',
   `logo` int(0) NOT NULL DEFAULT 0 COMMENT '网站logo',
-  `src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '链接',
+  `src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '链接',
   `target` int(0) NOT NULL DEFAULT 1 COMMENT '是否新窗口打开，1是,0否',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '状态:1可用-1禁用',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '友情链接' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '友情链接' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_links
@@ -715,14 +715,14 @@ INSERT INTO `cms_links` VALUES (4, '勾股DEV', 0, 'https://dev.gougucms.com', 0
 DROP TABLE IF EXISTS `cms_nav`;
 CREATE TABLE `cms_nav`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '标识',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标识',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用-1禁用',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '导航' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_nav
@@ -737,16 +737,16 @@ CREATE TABLE `cms_nav_info`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(0) NOT NULL DEFAULT 0,
   `nav_id` int(0) UNSIGNED NOT NULL DEFAULT 0,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
-  `src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+  `src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `param` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `target` int(0) NOT NULL DEFAULT 0 COMMENT '是否新窗口打开,默认0,1新窗口打开',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用,-1禁用',
   `sort` int(0) NOT NULL DEFAULT 0,
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '导航详情表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_nav_info
@@ -768,22 +768,22 @@ INSERT INTO `cms_nav_info` VALUES (10, 0, 1, '开发日志', '/home/index/logs.h
 DROP TABLE IF EXISTS `cms_pages`;
 CREATE TABLE `cms_pages`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '页面名称',
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '页面名称',
   `thumb` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '缩略图',
-  `banner` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '图集相册',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '页面摘要',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
+  `banner` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图集相册',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '页面摘要',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '页面状态:0下架,1正常',
   `read` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '阅读量',
   `sort` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT 'url文件名',
-  `template` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '前端模板',
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'url文件名',
+  `template` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '前端模板',
   `admin_id` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
   `create_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '编辑时间',
   `delete_time` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '单页面::crud' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '单页面::crud' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_pages
@@ -805,7 +805,7 @@ CREATE TABLE `cms_pages_keywords`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE,
   INDEX `inid`(`keywords_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '单页面关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '单页面关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_pages_keywords
@@ -820,14 +820,14 @@ INSERT INTO `cms_pages_keywords` VALUES (3, 3, 3, 1, 1644823517);
 DROP TABLE IF EXISTS `cms_position`;
 CREATE TABLE `cms_position`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '岗位名称',
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '岗位名称',
   `work_price` int(0) NOT NULL DEFAULT 0 COMMENT '工时单价',
-  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注',
+  `remark` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：-1删除 0禁用 1启用',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '岗位职称' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '岗位职称' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_position
@@ -842,11 +842,11 @@ INSERT INTO `cms_position` VALUES (3, '普通员工', 500, '普通员工', 1, 0,
 DROP TABLE IF EXISTS `cms_search_keywords`;
 CREATE TABLE `cms_search_keywords`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '关键字',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键字',
   `times` int(0) NOT NULL DEFAULT 1 COMMENT '搜索次数',
   `type` tinyint(0) NOT NULL DEFAULT 1 COMMENT '1,2',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '搜索关键字表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '搜索关键字表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_search_keywords
@@ -865,17 +865,17 @@ DROP TABLE IF EXISTS `cms_sitemap`;
 CREATE TABLE `cms_sitemap`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `sitemap_cate_id` int(0) NOT NULL DEFAULT 0 COMMENT '分类id',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `pc_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'pc端图片',
-  `pc_src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'pc端链接',
-  `mobile_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '移动端图片',
-  `mobile_src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '移动端链接',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `pc_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'pc端图片',
+  `pc_src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'pc端链接',
+  `mobile_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '移动端图片',
+  `mobile_src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '移动端链接',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用-1禁用',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '网站地图内容表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网站地图内容表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_sitemap
@@ -887,13 +887,13 @@ CREATE TABLE `cms_sitemap`  (
 DROP TABLE IF EXISTS `cms_sitemap_cate`;
 CREATE TABLE `cms_sitemap_cate`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用-1禁用',
   `sort` int(0) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '网站地图分类表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网站地图分类表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_sitemap_cate
@@ -905,14 +905,14 @@ CREATE TABLE `cms_sitemap_cate`  (
 DROP TABLE IF EXISTS `cms_slide`;
 CREATE TABLE `cms_slide`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '标识',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标识',
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用-1禁用',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '幻灯片表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '幻灯片表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_slide
@@ -926,16 +926,16 @@ DROP TABLE IF EXISTS `cms_slide_info`;
 CREATE TABLE `cms_slide_info`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `slide_id` int(0) UNSIGNED NOT NULL DEFAULT 0,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `src` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '1可用-1禁用',
   `sort` int(0) NOT NULL DEFAULT 0,
   `create_time` int(0) NOT NULL DEFAULT 0,
   `update_time` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '幻灯片详情表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '幻灯片详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_slide_info
@@ -947,39 +947,39 @@ CREATE TABLE `cms_slide_info`  (
 DROP TABLE IF EXISTS `cms_user`;
 CREATE TABLE `cms_user`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '用户微信昵称',
-  `nickname_a` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '用户微信昵称16进制',
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '账号',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '密码',
-  `salt` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '密码盐',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '真实姓名',
-  `mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '手机（也可以作为登录账号)',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户微信昵称',
+  `nickname_a` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户微信昵称16进制',
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账号',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '密码',
+  `salt` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '密码盐',
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机（也可以作为登录账号)',
   `mobile_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '手机绑定状态： 0未绑定 1已绑定',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '邮箱',
-  `headimgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '微信头像',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `headimgurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '微信头像',
   `sex` tinyint(1) NOT NULL DEFAULT 0 COMMENT '性别 0:未知 1:女 2:男 ',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '个人简介',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '个人简介',
   `birthday` int(0) NULL DEFAULT 0 COMMENT '生日',
-  `country` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '国家',
-  `province` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '省',
-  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '城市',
-  `company` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '公司',
-  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '公司地址',
-  `depament` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '部门',
-  `position` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '职位',
+  `country` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '国家',
+  `province` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '省',
+  `city` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '城市',
+  `company` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '公司',
+  `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '公司地址',
+  `depament` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '部门',
+  `position` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '职位',
   `puid` int(0) NOT NULL DEFAULT 0 COMMENT '推荐人ID,默认是0',
   `qrcode_invite` int(0) NOT NULL DEFAULT 0 COMMENT '邀请场景二维码id',
   `level` tinyint(1) NOT NULL DEFAULT 1 COMMENT '等级  默认是普通会员',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态  -1删除 0禁用 1正常',
   `last_login_time` int(0) NOT NULL DEFAULT 0 COMMENT '最后登录时间',
-  `last_login_ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '最后登录IP',
+  `last_login_ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '最后登录IP',
   `login_num` int(0) NOT NULL DEFAULT 0,
   `register_time` int(0) NOT NULL DEFAULT 0 COMMENT '注册时间',
-  `register_ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '注册IP',
+  `register_ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '注册IP',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '信息更新时间',
   `wx_platform` int(0) NOT NULL DEFAULT 0 COMMENT '首次注册来自于哪个微信平台',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_user
@@ -992,13 +992,13 @@ INSERT INTO `cms_user` VALUES (1, '勾股CMS', '', 'hdm58', '7aba99e08564eb6a9a6
 DROP TABLE IF EXISTS `cms_user_level`;
 CREATE TABLE `cms_user_level`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '等级名称',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '等级名称',
+  `desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` int(0) NOT NULL DEFAULT 1 COMMENT '状态:0禁用,1正常',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(0) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '会员等级表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '会员等级表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_user_level
@@ -1014,20 +1014,20 @@ DROP TABLE IF EXISTS `cms_user_log`;
 CREATE TABLE `cms_user_log`  (
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `uid` int(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '昵称',
-  `type` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作类型',
-  `title` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '操作标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '操作描述',
-  `module` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '模块',
-  `controller` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '控制器',
-  `function` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '方法',
-  `ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '登录ip',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '昵称',
+  `type` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作类型',
+  `title` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作标题',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '操作描述',
+  `module` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '模块',
+  `controller` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '控制器',
+  `function` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '方法',
+  `ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '登录ip',
   `param_id` int(0) UNSIGNED NOT NULL COMMENT '操作ID',
-  `param` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '参数json格式',
+  `param` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '参数json格式',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0删除 1正常',
   `create_time` int(0) NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户操作日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户操作日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_user_log

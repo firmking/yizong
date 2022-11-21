@@ -229,6 +229,13 @@ function get_article_cate()
     return $cate;
 }
 
+//读取活动分类列表
+function get_Activity_cate()
+{
+    $cate = Db::name('ActivityCate')->where(['delete_time' => 0])->order('create_time asc')->select()->toArray();
+    return $cate;
+}
+
 //读取图集分类列表
 function get_gallery_cate()
 {

@@ -34,7 +34,7 @@ return [
     // 错误显示信息,非调试模式有效
     'error_message'    => '😔错误～',
     // 显示错误信息
-    'show_error_msg'   => false,
+    'show_error_msg'   => true,
 	
 	'page_size'    => 20,
 	
